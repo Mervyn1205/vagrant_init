@@ -13,13 +13,15 @@ Vagrant.configure("2") do |config|
 	# 共享文件夹映射
 	config.vm.synced_folder "E:/workspace", "/workspace"
 	
-	
+	config.vm.provision "file", source: "./sources.list", destination: "/tmp/sources.list"
+	config.vm.provision "file", source: "./lnmp/nginx.conf", destination: "/tmp/nginx.conf"
+	config.vm.provision "file", source: "./lnmp/localhost.conf", destination: "/tmp/localhost.conf"
+	config.vm.provision "file", source: "./lnmp/php-fpm.conf", destination: "/tmp/php-fpm.conf"
+	config.vm.provision "file", source: "./lnmp/init_lnmp.sh", destination: "~/init_lnmp.sh"
 	
 	config.vm.define "lnmp" do |lnmp|
 		lnmp.vm.network "private_network", ip: "192.168.33.10"
 		lnmp.vm.hostname = 'lnmp'
-		# 初始化时需要执行的脚本
-		lnmp.vm.provision "shell", path: "init.sh"
 	end
 	
 	config.vm.define "node1" , autostart: false do |node1|

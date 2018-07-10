@@ -20,6 +20,8 @@ vagrant box add ubuntu https://cloud-images.ubuntu.com/xenial/current/xenial-ser
 执行以下命令即可
 ```
 vagrant up
+vagrant ssh lnmp
+sudo bash ~/init_lnmp.sh > init_lnmp.log
 ```
 
 ## Vagrant 常用命令
