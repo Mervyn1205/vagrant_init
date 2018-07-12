@@ -27,16 +27,25 @@ Vagrant.configure("2") do |config|
 	config.vm.define "node1" , autostart: false do |node1|
 		node1.vm.network "private_network", ip: "192.168.31.11"
 		node1.vm.hostname = 'node-1'
+		node1.vm.box = "lnmp"
 	end
 	
 	config.vm.define "node2" , autostart: false do |node2|
 		node2.vm.network "private_network", ip: "192.168.31.12"
 		node2.vm.hostname = 'node-2'
+		node2.vm.box = "lnmp"
 	end
 	
 	config.vm.define "node3" , autostart: false do |node3|
 		node3.vm.network "private_network", ip: "192.168.31.13"
-		node3.vm.hostname = 'node-2'
+		node3.vm.hostname = 'node-3'
+		node3.vm.box = "lnmp"
+	end
+	
+	config.vm.define "node4" , autostart: false do |node4|
+		node4.vm.network "private_network", ip: "192.168.31.14"
+		node4.vm.hostname = 'node-4'
+		node4.vm.box = "lnmp"
 	end
 
 end

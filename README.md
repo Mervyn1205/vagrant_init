@@ -24,6 +24,17 @@ vagrant ssh lnmp
 sudo bash ~/init_lnmp.sh > init_lnmp.log
 ```
 
+## Vagrant 打包
+```
+# --base 后的名称同 virtualbox中虚拟机的名称
+vagrant package --output lnmp.box --base vagrant_init_lnmp_1531188575496_7036
+```
+
+打包后需要执行以下命令，才能在Vagrantfile中引用
+```
+vagrant box add lnmp lnmp.box
+```
+
 ## Vagrant 常用命令
 
 ```shell
