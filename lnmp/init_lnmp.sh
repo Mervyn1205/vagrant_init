@@ -35,7 +35,7 @@ sudo cp /tmp/localhost.conf /usr/local/nginx/conf/vhost/localhost.conf
 # ==============================
 cd ~/php-7.2.7
 sudo apt-get install -y libxml2 libxml2-dev libcurl3  libcurl3-dev libpng3  libpng3-dev  libfreetype6 libfreetype6-dev  libmcrypt-dev  libmcrypt4 autoconf
-./configure --prefix=/usr/local/php7 --enable-fpm --enable-mbstring --with-curl=/usr/bin/curl --with-gd --with-pdo_mysql --with-freetype-dir --enable-opcache
+./configure --prefix=/usr/local/php7 --enable-fpm --enable-mbstring --with-curl=/usr/bin/curl --with-gd --with-pdo_mysql --with-freetype-dir --enable-opcache  --enable-bcmath --with-openssl=shared
 sudo make
 sudo make install
 
@@ -51,8 +51,26 @@ sudo make
 sudo make install
 echo 'extension="redis.so"' | sudo tee -a /usr/local/php7/lib/php.ini
 
+
+cd ~/php-5.6.36/
+./configure --prefix=/usr/local/php56 --enable-fpm --enable-mbstring --with-curl=/usr/bin/curl --with-gd --with-pdo_mysql --with-freetype-dir --enable-opcache  --enable-bcmath
+sudo make
+sudo make install
+
+sudo cp php.ini-development /usr/local/php56/lib/php.ini
+sudo cp /usr/local/php56/etc/php-fpm.conf.default /usr/local/php56/etc/php-fpm.conf
+sudo cp /tmp/php-fpm.conf /usr/local/php56/etc/php-fpm.d/www.conf
+
+# 安装php redis扩展
+cd ~/redis-3.1.6/
+/usr/local/php56/bin/phpize
+./configure --with-php-config=/usr/local/php56/bin/php-config
+sudo make
+sudo make install
+echo 'extension="redis.so"' | sudo tee -a /usr/local/php56/lib/php.ini
+
 # 启动服务
 sudo /usr/local/nginx/sbin/nginx
 sudo /usr/local/php7/sbin/php-fpm
+sudo /usr/local/php56/sbin/php-fpm
 
- 
